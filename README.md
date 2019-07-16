@@ -6,6 +6,7 @@
  - helloWorld2.js
 --------------------------------------------------------------------------------------
 □ Chapter02
+
  ▷ GlobalObject : 전역 객체
   - console.time.js
   - processTest.js
@@ -21,6 +22,7 @@
   - printHelloTest.js
   - readline.js
 
+ ▷ 기타
  - es6Test.js
  - AsyncTest.js
  - eventTest.js
