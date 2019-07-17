@@ -1,7 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 
-var filesPath = path.join(__dirname, 'Chapter02', 'ModuleSystem');
+var filesPath = path.join(__dirname, 'Chapter02');
 
 fs.readdir(filesPath, function(err, files){
     console.log(files);
