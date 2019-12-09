@@ -2,7 +2,7 @@ var express = require('express');
 var logger = require('morgan');
 var favicon = require('serve-favicon');
 var path = require('path');
-var dramaRoter = require('./routes/drama');
+var dramaRouter = require('./routes/drama');
 
 var app = express();
 
@@ -14,7 +14,7 @@ app.use(express.urlencoded({extended: true}));
 app.set('view engine', 'pug');
 app.set('views', './views');
 
-app.use('/', dramaRoter);
+app.use('/', dramaRouter);
 
 app.listen(8080, function(){
     console.log('8080 포트에서 대기중');

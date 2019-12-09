@@ -1,10 +1,21 @@
 var express = require('express');
 var app = express();
 
-// 1. Hello Express 예제
-// app.get('/', function(req, res){
-//     res.send('<h1>Hello Express</h1>');
-// });
+app.use(express.static('public'));
+
+app.get('/zzz', function(req, res){
+    console.log(`req.url: ${req.url}`);
+    // res.redirect('./public/index.html')
+    res.redirect('/index.html')
+});
+
+app.get('/hi', function(req, res){
+    res.send('<h1>Hi Express</h1>');
+});
+
+app.get('/iu', function(req, res){
+    res.sendFile('iu.png')
+});
 
 app.listen(8080, function(){
     console.log('8080 포트에서 대기중');
@@ -77,39 +88,39 @@ app.listen(8080, function(){
 //     res.sendFile('./public/index.html');
 // });
 
-// 5. querystring 처리(start ~ end까지의 합계)
-app.get('/', function(req, res){
-    if(req.query.start && req.query.end){
-        var start = parseInt(req.query.start);
-        var end = parseInt(req.query.end);
-        console.log(`start=${start}, end=${end}`);
-        res.send(`<h1>${calculateSum(start, end)}</h1>`);
-    }else{
-        res.sendfile('./public/sumRequest.html');
-    }
-});
+// // 5. querystring 처리(start ~ end까지의 합계)
+// app.get('/', function(req, res){
+//     if(req.query.start && req.query.end){
+//         var start = parseInt(req.query.start);
+//         var end = parseInt(req.query.end);
+//         console.log(`start=${start}, end=${end}`);
+//         res.send(`<h1>${calculateSum(start, end)}</h1>`);
+//     }else{
+//         res.sendfile('./public/sumRequest.html');
+//     }
+// });
 
-function calculateSum(start, end){
-    var sum = 0;
-    for(var i=start; i<=end; i++){
-        sum += i;
-    }
-    return sum;
-}
+// function calculateSum(start, end){
+//     var sum = 0;
+//     for(var i=start; i<=end; i++){
+//         sum += i;
+//     }
+//     return sum;
+// }
 
-// 6. post 처리(start ~ end까지의 합계)
-app.use(express.urlencoded({ extended: true }));
+// // 6. post 처리(start ~ end까지의 합계)
+// app.use(express.urlencoded({ extended: true }));
 
-app.post('/', function(req, res){
-    if(req.body.start && req.body.end){
-        var start = parseInt(req.body.start);
-        var end = parseInt(req.body.end);
-        console.log(`start=${start}, end=${end}`);
-        res.send(`<h1>${calculateSum(start, end)}</h1>`);
-    }else{
-        res.sendfile('./public/sumRequest.html');
-    }
-});
+// app.post('/', function(req, res){
+//     if(req.body.start && req.body.end){
+//         var start = parseInt(req.body.start);
+//         var end = parseInt(req.body.end);
+//         console.log(`start=${start}, end=${end}`);
+//         res.send(`<h1>${calculateSum(start, end)}</h1>`);
+//     }else{
+//         res.sendfile('./public/sumRequest.html');
+//     }
+// });
 
 
 
