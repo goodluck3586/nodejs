@@ -1,7 +1,7 @@
 // process는 전역객체 global에 포함된 객체이다.
-console.log(process.env);
-console.log(process.arch);
-console.log(process.platform);
+// console.log(process.env);
+// console.log(process.arch);
+// console.log(process.platform);
 
 // 터미널에서 매개변수를 입력받을 수 있다.  예) node processTest.js 10 20
 for(var i=0; i<4; i++)
@@ -15,7 +15,7 @@ process.on('exit', function(){
   console.log('end');
 });
 
-process.exit();
+// process.exit();
 
 
 
