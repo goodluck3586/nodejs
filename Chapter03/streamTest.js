@@ -6,6 +6,8 @@ const readStream = fs.createReadStream('./readme.txt', {highWaterMark: 8});  // 
 
 const data = [];  // stream으로 넘어오는 데이터를 저장할 배열
 
+// 스트림은 이벤트 기반으로 동작한다.(data, end, error....)
+// 버퍼(청크)들이 들어올 때마다 data 이벤트가 발생한다.
 // readme.txt 파일에서 데이터가 더 이상 없을 때 까지 data 이벤트가 발생한다.
 readStream.on('data', function(chunk){
   data.push(chunk);
@@ -16,6 +18,9 @@ readStream.on('data', function(chunk){
 readStream.on('end', function(){
   console.log('end: ', Buffer.concat(data).toString('utf8'));
 });
+
+// 에러 처리
+readStream.on('error', (err)=>console.log(err))
 
 // 1-2 paused mode
 const writeStream = fs.createWriteStream('./write.txt');  // 데이터를 file에 기록할 수 있는 writeStream
