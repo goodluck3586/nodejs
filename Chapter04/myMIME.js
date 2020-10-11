@@ -1,4 +1,5 @@
 var myMIME = {
+  'txt':'text/plain',
   'html':'text/html',
   'jpg':'image/jpeg',
   'png':'image/png',
@@ -9,3 +10,5 @@ var myMIME = {
 }
 
 module.exports = myMIME;
+
+// https://developer.mozilla.org/ko/docs/Web/HTTP/Basics_of_HTTP/MIME_types
