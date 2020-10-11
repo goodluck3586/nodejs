@@ -1,11 +1,13 @@
 const fs = require('fs');
 
 // 1. read stream 
-// 1-1 flowing mode : stream을 만들고 data 이벤트와 end 이벤트로 처리한다.
+//#region 1-1 flowing mode : stream을 만들고 data 이벤트와 end 이벤트로 처리한다.
 const readStream = fs.createReadStream('./readme.txt', {highWaterMark: 8});  // chunk의 크기 8byte
 
 const data = [];  // stream으로 넘어오는 데이터를 저장할 배열
 
+// 스트림은 이벤트 기반으로 동작한다.(data, end, error....)
+// 버퍼(청크)들이 들어올 때마다 data 이벤트가 발생한다.
 // readme.txt 파일에서 데이터가 더 이상 없을 때 까지 data 이벤트가 발생한다.
 readStream.on('data', function(chunk){
   data.push(chunk);
@@ -16,6 +18,10 @@ readStream.on('data', function(chunk){
 readStream.on('end', function(){
   console.log('end: ', Buffer.concat(data).toString('utf8'));
 });
+
+// 에러 처리
+readStream.on('error', (err)=>console.log(err))
+//#endregion
 
 // 1-2 paused mode
 const writeStream = fs.createWriteStream('./write.txt');  // 데이터를 file에 기록할 수 있는 writeStream
@@ -49,6 +55,9 @@ writeStream.on('finish', function(){
 const rs = fs.createReadStream('./write2.txt');
 const ws = fs.createWriteStream('./write3.txt');
 rs.pipe(ws);
+
+// 새로운 기능
+const readStream = fs.copyFile('./write2.txt', './write3.txt', (err)=>console.log(err))
 
 
 
