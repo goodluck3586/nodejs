@@ -16,6 +16,4 @@ socket.connect({port:3000, host:'localhost'}, function(){
     })
 
     socket.on('end', ()=>console.log('서버 연결 종료'))
-
-    
 })
