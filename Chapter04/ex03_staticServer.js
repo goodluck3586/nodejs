@@ -35,24 +35,24 @@ var server = http.createServer(function(req, res){
 //#endregion
 
 //#region 2. 정적 파일 요청 처리 : 스트림 활용
-// var server = http.createServer(function(req, res){
-//   console.log('req.url : ', req.url);
-//   if(req.url === '/'){
-//     res.setHeader('Content-Type', 'text/html');
-//     fs.createReadStream('./public/index.html').pipe(res);
-//   }else if(req.url === '/iu.png'){
-//     res.setHeader('Content-Type', 'image/png');
-//     fs.createReadStream('./public/iu.png').pipe(res);
-//   }else if(req.url === '/music.mp3'){
-//     res.setHeader('Content-Type', 'audio/mpeg');
-//     fs.createReadStream('./public/music.mp3').pipe(res);
-//   }else if(req.url === '/streaming.mp4'){
-//     res.setHeader('Content-Type', 'video/mp4');
-//     fs.createReadStream('./public/streaming.mp4').pipe(res);
-//   }else if(req.url === 'favicon.ico'){}
-// }).listen(8080, function(){
-//   console.log('8080 포트에서 대기중');
-// });
+var server = http.createServer(function(req, res){
+  console.log('req.url : ', req.url);
+  if(req.url === '/'){
+    res.setHeader('Content-Type', 'text/html');
+    fs.createReadStream('./public/index.html').pipe(res);
+  }else if(req.url === '/iu.png'){
+    res.setHeader('Content-Type', 'image/png');
+    fs.createReadStream('./public/iu.png').pipe(res);
+  }else if(req.url === '/music.mp3'){
+    res.setHeader('Content-Type', 'audio/mpeg');
+    fs.createReadStream('./public/music.mp3').pipe(res);
+  }else if(req.url === '/streaming.mp4'){
+    res.setHeader('Content-Type', 'video/mp4');
+    fs.createReadStream('./public/streaming.mp4').pipe(res);
+  }else if(req.url === 'favicon.ico'){}
+}).listen(8080, function(){
+  console.log('8080 포트에서 대기중');
+});
 //#endregion
 
 // 모든 에러 처리
