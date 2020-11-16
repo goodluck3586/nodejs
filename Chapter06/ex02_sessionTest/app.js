@@ -20,20 +20,16 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }))
+
 app.use(function (req, res, next) {
   // 해당 페이지를 몇 번 방문했는지를 기억시킬 객체 생성
   if (!req.session.views) {
     req.session.views = {}
   }
  
-  // get the url pathname
-  var pathname = parseurl(req).pathname
-  console.log(`parseurl(req).pathname: ${parseurl(req).pathname}`)
-  console.log(`parseurl(req).pathname: ${req.url}`)
- 
   // count the views
-  req.session.views[pathname] = (req.session.views[pathname] || 0) + 1
-  console.log(`req.session.views[pathname]: ${req.session.views[pathname]}`)
+  req.session.views[req.url] = (req.session.views[req.url] || 0) + 1
+  console.log(`req.session.views[req.url]: ${req.session.views[req.url]}`)
   next()
 })
 
@@ -45,14 +41,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-
-app.get('/foo', function (req, res, next) {
-  res.send('you viewed this page ' + req.session.views['/foo'] + ' times')
-})
- 
-app.get('/bar', function (req, res, next) {
-  res.send('you viewed this page ' + req.session.views['/bar'] + ' times')
-})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
