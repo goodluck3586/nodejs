@@ -5,7 +5,11 @@
     <link rel='stylesheet' href='/stylesheets/login_style.css' />
   </head>
   <body>
+    <% if(isLogin){ %>
+    <a href="/users/logout"><button style="width:auto;">Logout (<%=userEmail%>)</button></a>
+    <% }else{ %>
     <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
+    <% } %>
 
     <div id="id01" class="modal">
       <!-- 로그인 폼 -->
@@ -47,7 +51,7 @@
     }
     </script>
 
-    <h1><%= title %></h1>
+    <a href="/drama"><h1><%= title %></a></h1>
     <p>Welcome to <%= title %></p>
   </body>
 </html>

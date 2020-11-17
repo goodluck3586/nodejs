@@ -2,11 +2,6 @@ var express = require('express');
 var router = express.Router();
 var model = require('../models/usersDAO');
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
-
 // 로그인 처리
 router.post('/login', (req, res)=>{
   if(req.body.email && req.body.pwd){
@@ -19,7 +14,7 @@ router.post('/login', (req, res)=>{
         //res.send('<h1>로그인 성공</h1>')
         // 로그인 성공 req.session에 기록
         req.session.isLogin = true;
-        req.session.userId = req.body.email;
+        req.session.userEmail = req.body.email;
         res.redirect('/');
       }else{
         res.send('<h1>로그인 실패</h1>')

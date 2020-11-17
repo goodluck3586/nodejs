@@ -11,15 +11,15 @@ function chooseOnlyOneCheckBox(selectedCheckBox, id){
                 obj[i].checked = false;
             }
         }
-        document.querySelector('form').setAttribute('action', `http://localhost:3000/update/${id}`)
-        document.getElementById('deleteBtn').setAttribute('href', `http://localhost:3000/delete/${id}`)
+        document.querySelector('form').setAttribute('action', `http://localhost:3000/drama/update/${id}`)
+        document.getElementById('deleteBtn').setAttribute('href', `http://localhost:3000/drama/delete/${id}`)
         title = document.getElementById(`title${id}`).innerText
         actor = document.getElementById(`actor${id}`).innerText
         document.getElementById('title').setAttribute('value', title)
         document.getElementById('actor').setAttribute('value', actor)
         document.getElementById('submitBtn').setAttribute('value', '수정')
     }else{
-        document.querySelector('form').setAttribute('action', `http://localhost:3000`)
+        document.querySelector('form').setAttribute('action', `http://localhost:3000/drama`)
         document.getElementById('deleteBtn').setAttribute('href', `#`)
         document.getElementById('title').setAttribute('value', '')
         document.getElementById('actor').setAttribute('value', '')
