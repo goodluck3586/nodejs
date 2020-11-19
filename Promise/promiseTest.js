@@ -1,23 +1,24 @@
-// // 비동기 처리
-// // 1. 콜백 함수 사용
-// function delay(sec, callback){
-//     setTimeout(() => {
-//         callback(new Date().toTimeString());
-//     }, sec * 1000);
-// }
+// 비동기 처리
+//#region 1. 콜백 함수 사용
+function delay(sec, callback){
+    setTimeout(() => {
+        callback(new Date().toTimeString());
+    }, sec * 1000);
+}
 
-// console.log('start: ', new Date().toTimeString());
-// delay(1, function(time){
-//     console.log(1, time);
-//     delay(1, function(time){
-//         delay(1, function(time){
-//             console.log(3, time);
-//         });
-//         console.log(2, time);
-//     });
-// });
+console.log('start: ', new Date().toTimeString());
+delay(1, function(time){
+    console.log(1, time);
+    delay(1, function(time){
+        delay(1, function(time){
+            console.log(3, time);
+        });
+        console.log(2, time);
+    });
+});
+//#endregion
 
-// 2. Promise 사용
+//#region 2. Promise 사용
 function delayP(sec){
     return new Promise(function(resolve, reject){
         setTimeout(() => {
@@ -42,4 +43,4 @@ delayP(1)
     .catch(function(){
         console.log('error');
     })
-
+//#endregion
