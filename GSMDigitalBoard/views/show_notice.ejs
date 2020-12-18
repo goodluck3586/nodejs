@@ -69,31 +69,38 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Third party plugin JS-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="/javascripts/scripts.js"></script>
         <script>
             // 5초마다 차례 대로 스크롤하며 보여주기
             window.onload = ()=>{
-            let img_length = <%= results_length %>;
-            // console.log('results_length', img_length);
-            // const sectionList = ['#portfolio', '#img0', '#img1', '#contact']
-            const sectionList = []
-            for (let i = 0; i < img_length; i++) {
-                sectionList.push('#img'+i);
-            }
-            // console.log('sectionList', sectionList);
+                let img_length = <%= results_length %>;
+                // console.log('results_length', img_length);
+                // const sectionList = ['#img0', '#img1', '#img2']
+                const sectionList = []
+                for (let i = 0; i < img_length; i++) {
+                    sectionList.push('#img'+i);
+                }
+                // console.log('sectionList', sectionList);
 
-            let index = 0;
-            let target;
-            setInterval(() => {
-                target = $(sectionList[index]);
-                $('html, body').animate(
-                {
-                    scrollTop: (target.offset().top)
-                }, 1000, "easeInOutExpo");
-                index++;
-                index %= sectionList.length;
-            }, 2000);
+                let index = 0;
+                let target;
+                let count = img_length * 2;
+                const interval = setInterval(() => {
+                    target = $(sectionList[index]);
+                    console.log('target', target);
+                    $('html, body').animate(
+                    {
+                        scrollTop: (target.offset().top)
+                    }, 1000, "easeInOutExpo");
+                    index++;
+                    index %= sectionList.length;
+
+                    count--;
+                    if(count < 0){
+                        console.log('stop')
+                        location.href = '/power.html'
+                        // clearInterval(interval)
+                    }
+                }, 5000);
             }
         </script>
     </body>

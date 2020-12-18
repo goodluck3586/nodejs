@@ -38,7 +38,8 @@
         <th>Title</th>
         <th>Date(start)</th>
         <th>Date(end)</th>
-        <th>Image File Name</th>
+        <!-- <th>Image File Name</th> -->
+        <th>Message</th>
         <th>Writer(e-mail)</th>
         <th>Modify Delete</th>
       </tr>
@@ -50,11 +51,12 @@
           <th><%= item.title %></th>
           <th><%= item.date_start_post.toString().substring(0, 10) %></th>
           <th><%= item.date_end_post.toString().substring(0, 10) %></th>
-          <th><%= item.article_img.toString().substring(16) %></th>
+          <!-- <th><%= item.article_img.toString().substring(16) %></th> -->
+          <th><%= item.message %></th>
           <th><%= item.writer_email %></th>
           <th>
-            <a href="/article/modify_article/<%= item.idarticle %>">Modify</a>
-            <a href="/article/delete/<%= item.idarticle %>">Delete</a>
+            <a href="#">Modify</a>
+            <a href="/notice/delete/<%= item.idarticle %>">Delete</a>
           </th>
         </tr>
       <% }) %>

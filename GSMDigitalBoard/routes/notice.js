@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var model = require('../models/articleDAO');
+var fs = require('fs')
 
 //#region 이미지 파일 처리
 //파일관련 모듈
@@ -13,18 +14,18 @@ var storage = multer.diskStorage(
   destination: function (req, file, cb) {
     //파일이 이미지 파일이면
     if (file.mimetype == "image/jpeg" || file.mimetype == "image/jpg" || file.mimetype == "image/png") {
-      console.log("이미지 파일이네요")
+      // console.log("이미지 파일이네요")
       cb(null, 'public/uploads/images')
       //텍스트 파일이면
     } else if (file.mimetype == "application/pdf" || file.mimetype == "application/txt" || file.mimetype == "application/octet-stream") {
-      console.log("텍스트 파일이네요")
+      // console.log("텍스트 파일이네요")
       cb(null, 'public/uploads/texts')
     }
   },
     //파일이름 설정
     filename: function (req, file, cb) {
       const date = new Date();
-    cb(null, `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}-${file.originalname}`)
+    cb(null, `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}-${file.originalname.replace(/(\s*)/g, "")}`)
   }
 })
 
@@ -32,7 +33,7 @@ var storage = multer.diskStorage(
 var upload = multer({ storage: storage })
 //#endregion
 
-// 새로운 게시물
+// 새로운 게시물 작성 페이지
 router.get('/write', function(req, res) {
   const date = new Date(); 
   today = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
@@ -45,22 +46,22 @@ router.get('/write', function(req, res) {
   });
 });
 
-// 새로운 게시물 업로드
+// 새로운 게시물 업로드 처리
 router.post('/write', upload.single('image_file'), (req, res)=>{
+  // console.log('req.body', req.body);
+  // console.log('req.file.path', req.file.path)
   model.insertArticle(req.body, req.file.path.substring(6), req.session.userEmail, ()=>{
     // res.send('<h1>이미지 업로드 성공</h1>')
-    res.redirect('/notice/list/1')
+    res.redirect('/notice/list')
   })
 })
 
-// notice를 페이지 단위로 10개씩 보여주는 화면 만들기
+// notice를 리스트로 보여주는 페이지
 router.get('/list', (req, res)=>{
-  let page = req.params.page;
-  console.log('page', page);
   model.selectAllArticlesCount((count)=>{
     let articles_count = count;
-    console.log('articles_count', articles_count)
-    model.selectArticlesByPage(page, (results)=>{
+    // console.log('articles_count', articles_count)
+    model.selectArticles((results)=>{
       // res.send(results)
       res.render('show_notice_list', 
       {
@@ -73,14 +74,22 @@ router.get('/list', (req, res)=>{
   })
 })
 
-// 기존 게시물 삭제
+// 기존 게시물 삭제 처리
 router.get('/delete/:id', function(req, res){
-  model.deleteArticle(req.params.id, ()=>res.redirect('/article/list/1'))
-})
-
-// 전력 화면 
-router.get('/show_power', (req, res)=>{
-  res.redirect('/power.html');
+  model.selectArticlesById(req.params.id, (results)=>{
+    // console.log('req.params.id', req.params.id)
+    // console.log('results', results);
+    // console.log(results[0].article_img.substring(18))
+    let filename = results[0].article_img.substring(16);
+    // 삭제된 게시물 파일 제거
+    fs.unlink(`./public/uploads/images/${filename}`, (err)=>{
+      if(err){
+        console.log('파일 삭제 에러', err.message);
+      }
+      console.log(`${filename} 파일 삭제 성공`)
+    })
+  })
+  model.deleteArticle(req.params.id, ()=>res.redirect('/notice/list'))
 })
 
 // 디지털 게시판 화면 
@@ -99,5 +108,10 @@ router.get('/show', function(req, res){
     });
   })
 });
+
+// 전력 화면 
+router.get('/show_power', (req, res)=>{
+  res.redirect('/power.html');
+})
 
 module.exports = router;

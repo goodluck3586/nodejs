@@ -26,8 +26,12 @@ button:hover {
 }
 
 /* 내가 만든거 */
-.margin-right-2rem{
+.margin-right-2rem {
   margin-right: 2rem;
+}
+
+.padding-right-2rem {
+  padding-right: 2rem;
 }
 
 /* Extra styles for the cancel button */

@@ -21,11 +21,21 @@ exports.selectAllArticlesCount = (cb)=>{
     })
 }
 
-exports.selectArticlesByPage = (page, cb)=>{
-    page = (page-1)*10;
-    let sql = 'SELECT * FROM article ORDER BY idarticle DESC LIMIT ?, 10'
-    sql = 'SELECT * FROM article ORDER BY idarticle DESC'
-    connection.query(sql, [page], (error, results, fields)=>{
+exports.selectArticles = (cb)=>{
+    let sql = 'SELECT * FROM article ORDER BY idarticle DESC'
+    connection.query(sql, (error, results, fields)=>{
+        if(error){
+            console.log(error);
+        }else{
+            cb(results);
+        }
+    })
+}
+
+exports.selectArticlesById = (id, cb)=>{
+    let sql = 'SELECT * FROM article WHERE idarticle = ?'
+    let values = [id]
+    connection.query(sql, values, (error, results, fields)=>{
         if(error){
             console.log(error);
         }else{
@@ -49,7 +59,6 @@ exports.insertArticle = function(body, imageFile, writerEmail, cb){
 
 exports.deleteArticle = (id, cb)=>{
     sql = `DELETE FROM article WHERE idarticle = ${id}`;
-    console.log('sql', sql)
     connection.query(sql, function(error, results, fields){
         if(error){
             console.log('DELETE ERROR');
