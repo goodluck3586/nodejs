@@ -66,5 +66,6 @@ async function asyncFunc(){
     data = await fsPromise.readFile('./readme.txt');
     console.log(data.toString());
 }
+
 asyncFunc();
 //#endregion
