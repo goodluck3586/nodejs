@@ -5,7 +5,8 @@ var model = require('../models/dramaDAO');
 router.get('/', function(req, res) {
   model.selectDrama((results)=>{
     //res.send(results)
-    res.render('dramaList', { title: 'My Favorite Drama List', list: results, isLogin: req.session.isLogin });
+    res.render('dramaList', 
+    { title: 'My Favorite Drama List', list: results, isLogin: req.session.isLogin });
   })
 });
   
